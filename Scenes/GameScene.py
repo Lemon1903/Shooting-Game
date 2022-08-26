@@ -22,7 +22,7 @@ class Game(Scene):
         self.angle_to_mouse = 0
         self.enemy_speed = 2
         self.spawn_time = 2000
-        self.player = Player(150, 150)
+        self.player = Player(SCREEN_W/2 - PLAYER_W/2, SCREEN_H/2 - PLAYER_H/2)
         self.weapon_menu = Weapon_Menu()
         self.enemies = pg.sprite.Group()
         self.bullets = pg.sprite.Group()
