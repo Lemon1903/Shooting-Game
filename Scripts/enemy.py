@@ -12,8 +12,8 @@ class Enemy(pg.sprite.Sprite):
         self.image.fill(BLUE)
         # random starting positions
         angle = random.uniform(-3, 3)
-        pos_x = math.cos(angle) * SCREEN_W/2
-        pos_y = math.sin(angle) * SCREEN_H/2
+        pos_x = SCREEN_W/2 + math.cos(angle) * SCREEN_W/2
+        pos_y = SCREEN_H/2 + math.sin(angle) * SCREEN_H/2
         self.rect = self.image.get_rect(x=pos_x, y=pos_y)
         self.health = pg.Rect(self.rect.left, self.rect.top - 15, 50, 10)
         self.empty_health = pg.Rect(self.rect.left, self.rect.top - 15, 50, 10)
