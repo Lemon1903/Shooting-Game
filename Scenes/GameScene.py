@@ -36,8 +36,8 @@ class Game(Scene):
         if self.weapon_menu.is_open:
             self.weapon_menu.draw(self.WIN, self.player.rect.center)
         else:
+            Game.current_time = pg.time.get_ticks()
             self.spawn_enemies()
-            self.handle_player_movement()
             self.player.update(self.WIN, self.angle_to_mouse)
             self.bullets.update(self.wall.w, self.wall.h) 
             self.enemies.update(self.WIN, self.player)
@@ -47,6 +47,8 @@ class Game(Scene):
         pg.display.update()
 
     def handle_player_movement(self):
+        if self.weapon_menu.is_open: return
+
         keys_pressed = pg.key.get_pressed()
         if (keys_pressed[pg.K_a] and not self.player.have_object_left
             and self.player.rect.left > self.wall_thickness):
@@ -106,7 +108,6 @@ class Game(Scene):
     def Scene(self):
         while True:
             Game.clock.tick(60)
-            Game.current_time = pg.time.get_ticks()
             mouse_pos = pg.mouse.get_pos()
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -128,6 +129,7 @@ class Game(Scene):
             if self.player.health.w <= 0:
                 self.show_game_over()
             else:
+                self.handle_player_movement()
                 self.update_enemy_speed()
                 self.update_spawn_time()
                 self.handle_bullets()
